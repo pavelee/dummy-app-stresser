@@ -1,12 +1,17 @@
-FROM python:3.10-alpine3.15
+# to run locally execute 
+# docker build -t srunner .
+# run -d --privileged --init srunner:latest
+FROM docker:20.10.8-dind-alpine3.13
 
-RUN pip3 install robotframework robotframework-requests
+COPY --from=library/docker:latest /usr/local/bin/docker /usr/bin/docker
 
-COPY dummy_app_stresser.robot /srv/dummy_app_stresser.robot
-COPY entrypoint.sh /srv/entrypoint.sh
-RUN chmod +x /srv/entrypoint.sh
+COPY ./docker-entrypoint.sh /usr/local/bin/docker-entrypoint
+RUN chmod +x /usr/local/bin/docker-entrypoint
 
-ENV ROBOT_PATH=/srv/dummy_app_stresser.robot
-ENV ROBOT_OPTIONS="-v page:http://wp.pl"
+COPY ./dummy_app_stresser /srv/dummy_app_stresser
 
-CMD ["/srv/entrypoint.sh"]
+CMD ["dockerd-entrypoint.sh"]
+
+ENTRYPOINT ["docker-entrypoint"]
+
+# docker run -e ROBOT_OPTIONS="-v page:http://portaloswiatowy.pl -v lifetime:0 -v latency:0" stresser:latest
