@@ -30,7 +30,7 @@ docker exec runner docker build -t robot /srv/dummy_app_stresser
 ### Run container with robot
 
 ```
-docker exec runner docker run -e ROBOT_OPTIONS="-v page:YOUR_APP_ADDRESS -v lifetime:0 -v latency:0" robot:latest
+docker exec runner docker run  -e ROBOT_OPTIONS="-v page:YOUR_APP_ADDRESS -v lifetime:0 -v latency:0" robot:latest
 ```
 
 -   lifetime - time in seconds the robot will stand, if 0 it will be infinite
@@ -51,3 +51,12 @@ You can terminate robot job by killing the runner:
 ```
 docker kill runner
 ```
+
+## Connect to your localhost
+
+To connect with your localhost instead http://localhost:MY_PORT use 
+
+```
+http://host.docker.internal:MY_PORT
+```
+
