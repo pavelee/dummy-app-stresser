@@ -50,6 +50,7 @@ Fetch Page
     [Arguments]    ${url}
     Start Browser
     Go To    ${url}
+    Take Screenshot
     End Browser
 
 Just Wait
