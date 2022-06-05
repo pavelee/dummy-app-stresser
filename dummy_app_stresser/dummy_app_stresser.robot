@@ -1,5 +1,6 @@
 *** Settings ***
-Library     RequestsLibrary
+#Library    RequestsLibrary
+Library     Browser
 
 
 *** Variables ***
@@ -7,6 +8,7 @@ ${page}=        https://wp.pl
 ${lifetime}=    0
 ${latency}=     0
 
+# docker run -d -e ROBOT_OPTIONS="-v page:https://wp.pl -v lifetime:0 -v latency:0" stresser:latest
 
 *** Tasks ***
 Lets Stress some app
@@ -16,7 +18,16 @@ Lets Stress some app
         Fetch Page In Infinite Loop    ${page}
     END
 
+
 *** Keywords ***
+Start Browser
+    New Browser    firefox    headless=0    slowMo=0.1
+    New Context    viewport={'width': 1920, 'height': 1080}    acceptDownloads=true    recordVideo={'dir': 'video'}
+    New Page
+
+End Browser
+    Close Browser
+
 Fetch Page In Infinite Loop
     [Arguments]    ${page}
     WHILE    True
@@ -37,9 +48,9 @@ Fetch Page In Interations Loop
 
 Fetch Page
     [Arguments]    ${url}
-    ${html}=    GET    ${page}
-    Log To Console    ${html}
-    RETURN    ${html}
+    Start Browser
+    Go To    ${url}
+    End Browser
 
 Just Wait
     [Arguments]    ${latency}
