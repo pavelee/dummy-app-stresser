@@ -43,3 +43,11 @@ It's really easy to run few robots at once. Just execute them in the background.
 ```
 docker exec runner docker run -d -e ROBOT_OPTIONS="-v page:YOUR_APP_ADDRESS -v lifetime:0 -v latency:0" robot:latest
 ```
+
+## Fast clean-up
+
+You can terminate robot job by killing the runner:
+
+```
+docker kill runner
+```
