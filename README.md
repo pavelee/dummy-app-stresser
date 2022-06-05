@@ -1,5 +1,12 @@
 # Dummy App Stresser
 
+## What's that?
+
+It's an simple enviorment to run robot that will fetch your app page constantly. 
+
+It could be usefult in example of simulating some movements on your app.
+
+
 ## How to run?
 
 ### Build runner image
@@ -19,12 +26,6 @@ docker run -d --name=runner --privileged --init runner:latest
 ```
 docker exec runner docker build -t robot /srv/dummy_app_stresser
 ```
-
-### What's that?
-
-It's an simple enviorment to run robot that will fetch your app page constantly. 
-
-It could be usefult in example of simulating some movements on your app.
 
 ### Run container with robot
 
