@@ -5,10 +5,7 @@ RUN apt-get update \
     python3-pip python3-dev \
     libasound2 libdbus-glib-1-2 \
     xvfb \
-    nodejs npm \
-    && apt-get clean autoclean \
-    && apt-get autoremove --yes \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/;
+    nodejs npm;
 
 RUN pip3 install \
     robotframework \
